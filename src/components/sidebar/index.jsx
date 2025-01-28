@@ -2,9 +2,9 @@ import React from "react";
 
 function index() {
   const draggableShapes = [
-    { id: "1", label: "Process", type: "process", color: "#A855F7" },
-    { id: "2", label: "Decision", type: "decision", color: "#3B82F6" },
-    { id: "3", label: "Entity", type: "entity", color: "#22C55E" },
+    { id: "1", label: "Process", type: "textUpdater", color: "#A855F7" },
+    { id: "2", label: "Decision", type: "textUpdater", color: "#3B82F6" },
+    { id: "3", label: "Entity", type: "textUpdater", color: "#22C55E" },
   ];
 
   const handleDragStart = (e, shape) => {

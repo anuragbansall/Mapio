@@ -8,12 +8,21 @@ import {
   useEdgesState,
   addEdge,
 } from "@xyflow/react";
+import TextUpdaterNode from "./TextUpdaterNode";
 
 const initialNodes = [
-  { id: "1", position: { x: 0, y: 0 }, data: { label: "1" } },
+  {
+    id: "1",
+    type: "textUpdater",
+    position: { x: 0, y: 0 },
+    data: { value: "Edit me!", label: "1" },
+  },
   { id: "2", position: { x: 0, y: 100 }, data: { label: "2" } },
 ];
+
 const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
+
+const nodeTypes = { textUpdater: TextUpdaterNode };
 
 export default function Canva() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
@@ -35,13 +44,14 @@ export default function Canva() {
       e.preventDefault();
       const shape = JSON.parse(e.dataTransfer.getData("shape"));
       const bounds = e.target.getBoundingClientRect();
-      const offsetX = e.clientX - bounds.left - 500; 
+      const offsetX = e.clientX - bounds.left - 500;
       const offsetY = e.clientY - bounds.top - 150;
 
       const newNode = {
         id: `${nodes.length + 1}`,
         position: { x: offsetX, y: offsetY },
         data: { label: shape.label, type: shape.type },
+        type: shape.type,
       };
 
       setNodes((nodes) => [...nodes, newNode]);
@@ -64,6 +74,7 @@ export default function Canva() {
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         defaultViewport={initialView}
+        nodeTypes={nodeTypes}
       >
         <Controls />
         <MiniMap />
